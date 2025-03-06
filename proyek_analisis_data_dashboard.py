@@ -46,9 +46,7 @@ def create_rfm_df(df):
     return rfm_df
 
 url = "https://drive.google.com/file/d/1z9fAU2MpEFKMydxVWuSUOAa1J3vM9k-m/view?usp=sharing"
-output = "ecommerce.csv"
-gdown.download(url, output, quiet=False)
-ecommerce_all_df = pd.read_csv("ecommerce.csv")
+ecommerce_all_df = pd.read_csv(url)
 
 # Convert to datetime before sorting
 ecommerce_all_df["order_purchase_timestamp"] = pd.to_datetime(ecommerce_all_df["order_purchase_timestamp"])
