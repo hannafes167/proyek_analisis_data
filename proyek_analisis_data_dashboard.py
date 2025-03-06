@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
+import gdown
 sns.set(style='dark')
 
 # Create Data Frame
@@ -44,7 +45,10 @@ def create_rfm_df(df):
     
     return rfm_df
 
-ecommerce_all_df = pd.read_csv("https://docs.google.com/spreadsheets/d/1OlTpzuQNptGwyQV162ZBpyTSAhmNOxVvIEERZ1sj34I/edit?usp=sharing.csv")
+url = "https://drive.google.com/file/d/1z9fAU2MpEFKMydxVWuSUOAa1J3vM9k-m/view?usp=sharing"
+output = "ecommerce.csv"
+gdown.download(url, output, quiet=False)
+ecommerce_all_df = pd.read_csv("ecommerce.csv")
 
 # Convert to datetime before sorting
 ecommerce_all_df["order_purchase_timestamp"] = pd.to_datetime(ecommerce_all_df["order_purchase_timestamp"])
