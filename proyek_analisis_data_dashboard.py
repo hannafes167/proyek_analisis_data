@@ -44,7 +44,7 @@ def create_rfm_df(df):
     
     return rfm_df
 
-ecommerce_all_df = pd.read_csv("ecommerce_all_df.csv")
+ecommerce_all_df = pd.read_csv("https://docs.google.com/spreadsheets/d/1OlTpzuQNptGwyQV162ZBpyTSAhmNOxVvIEERZ1sj34I/edit?usp=sharing.csv")
 
 # Convert to datetime before sorting
 ecommerce_all_df["order_purchase_timestamp"] = pd.to_datetime(ecommerce_all_df["order_purchase_timestamp"])
