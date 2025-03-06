@@ -44,7 +44,7 @@ def create_rfm_df(df):
     
     return rfm_df
 
-url = "https://drive.google.com/file/d/1z9fAU2MpEFKMydxVWuSUOAa1J3vM9k-m/view?usp=sharing"
+url = "https://drive.google.com/uc?export=download&id=1z9fAU2MpEFKMydxVWuSUOAa1J3vM9k-m"
 ecommerce_all_df = pd.read_csv(url)
 
 # Convert to datetime before sorting
