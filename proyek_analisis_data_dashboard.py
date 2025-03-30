@@ -254,11 +254,14 @@ try:
     
     with tab2:
         fig = px.bar(rfm_df.sort_values("frequency", ascending=False).head(5),
-                     x="customer_id_short",
-                     y="frequency",
-                     title="Top Customers by Purchase Frequency",
-                     color="frequency",
-                     color_continuous_scale=MAROON_SCALES["frequency"])
+             x="customer_id_short",
+             y="frequency",
+             color="frequency",
+             color_continuous_scale=MAROON_SCALES["frequency"],
+             title="Top Customers by Purchase Frequency",
+             hover_data={"customer_id_short": True, "frequency": ":.0f"},
+             text="customer_id_short")  # Add customer IDs as labels
+        fig.update_traces(textposition='outside')  # Position the labels
         fig.update_layout(margin=dict(l=20, r=20, t=40, b=20))
         st.plotly_chart(fig, use_container_width=True)
     
