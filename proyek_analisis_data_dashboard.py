@@ -250,14 +250,38 @@ try:
         st.plotly_chart(fig, use_container_width=True)
 
     with tab2:
-        fig = px.bar(rfm_df.sort_values("frequency", ascending=False).head(5),
-                     x="customer_id_short",
-                     y="frequency",
-                     title="Top Customers by Purchase Frequency",
-                     color="frequency",
-                     color_continuous_scale=MAROON_SCALES)
-        fig.update_layout(margin=dict(l=20, r=20, t=40, b=20))
-        st.plotly_chart(fig, use_container_width=True)
+    # Get exact top 5 records (no aggregation)
+    top_freq = rfm_df.sort_values("frequency", ascending=False).head(5).copy()
+    
+    fig = px.bar(
+        top_freq,
+        x="customer_id_short",
+        y="frequency",
+        text="frequency",
+        color_discrete_sequence=["#800000"],
+        title="Top Customers by Order Frequency",
+        labels={"customer_id_short": "Customer ID", "frequency": "Orders Count"},
+        # Critical parameters:
+        barmode='group',  # Prevents aggregation
+        category_orders={"customer_id_short": top_freq['customer_id_short'].tolist()}  # Lock order
+    )
+    
+    # Ensure consistent display
+    fig.update_traces(
+        texttemplate='%{y}',
+        textposition='outside',
+        textfont_size=12
+    )
+    
+    fig.update_layout(
+        xaxis_title="Customer ID",
+        yaxis_title="Number of Orders",
+        xaxis={'type': 'category'},  # Treat IDs as discrete
+        uniformtext_minsize=8,
+        margin=dict(l=50, r=50, t=80, b=50)
+    )
+    
+    st.plotly_chart(fig, use_container_width=True)
     
     with tab3:
         fig = px.bar(rfm_df.sort_values("monetary", ascending=False).head(5),
