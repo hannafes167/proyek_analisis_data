@@ -250,8 +250,9 @@ try:
         st.plotly_chart(fig, use_container_width=True)
 
     with tab2:
+        top_freq = rfm_df.sort_values("frequency", ascending=False).head(5).copy()
         fig = px.bar(
-            rfm_df.sort_values("frequency", ascending=False).head(5),
+            top_freq,
             x="customer_id_short",
             y="frequency",
             title="Top Customers by Order Frequency",
