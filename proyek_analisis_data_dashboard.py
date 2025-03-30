@@ -256,8 +256,8 @@ try:
             x="customer_id_short",
             y="frequency",
             title="Top Customers by Order Frequency",
-            color="frequency",
-            color_discrete_sequence=MAROON_SCALES,
+            #color="frequency",
+            color_continuous_scale=MAROON_SCALES,
             # labels={"customer_id_short": "Customer ID", "frequency": "Orders Count"},
             # Critical parameters:
             barmode='group',  
@@ -268,7 +268,12 @@ try:
             textposition='outside',
             textfont_size=12
         )
-        fig.update_layout(margin=dict(l=50, r=50, t=80, b=50))
+        fig.update_layout( xaxis_title="customer_id_short",
+            yaxis_title="frequency",
+            xaxis={'type': 'category'},  
+            uniformtext_minsize=8,
+            margin=dict(l=50, r=50, t=80, b=50)
+        )
         st.plotly_chart(fig, use_container_width=True)
     
     with tab3:
