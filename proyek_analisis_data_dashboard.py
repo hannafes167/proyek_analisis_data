@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 sns.set(style='dark')
 
-# Create Data Frame
+# Data Frame
 def create_daily_orders_df(df):
     daily_orders_df = df.resample(rule='D', on="order_purchase_timestamp").agg({
         "order_id": "nunique",
@@ -18,8 +18,7 @@ def create_daily_orders_df(df):
     daily_orders_df.rename(columns={
         "order_id": "order_count",
     }, inplace=True)
-
-    # Ensure datetime format is Plotly-friendly
+    
     daily_orders_df['order_purchase_timestamp'] = pd.to_datetime(daily_orders_df['order_purchase_timestamp'])
     return daily_orders_df
 
@@ -46,7 +45,6 @@ def create_rfm_df(df):
     recent_date = df["order_purchase_timestamp"].dt.date.max()
     rfm_df["recency"] = rfm_df["max_order_timestamp"].apply(lambda x: (recent_date - x).days)
     rfm_df.drop("max_order_timestamp", axis=1, inplace=True)
-    
     return rfm_df
 
 # Load data
@@ -56,14 +54,13 @@ def load_data():
     df = pd.read_csv(url)
     df["order_purchase_timestamp"] = pd.to_datetime(df["order_purchase_timestamp"])
     return df
-
 ecommerce_all_df = load_data()
 
 # Data preparation
 min_date = ecommerce_all_df["order_purchase_timestamp"].min().date()
 max_date = ecommerce_all_df["order_purchase_timestamp"].max().date()
 
-# Create side bar
+# Side bar
 with st.sidebar:
     st.image("https://w7.pngwing.com/pngs/621/196/png-transparent-e-commerce-logo-logo-e-commerce-electronic-business-ecommerce-angle-text-service-thumbnail.png")
     
@@ -75,8 +72,7 @@ with st.sidebar:
             max_value=max_date,
             value=[min_date, max_date]
         )
-        
-        # handle case where only one date is selected
+
         if isinstance(start_date, tuple) or isinstance(end_date, tuple):
             start_date, end_date = min_date, max_date
             st.warning("Please select both start and end dates. Using full range instead.")
@@ -100,7 +96,7 @@ main_df = ecommerce_all_df[
     (ecommerce_all_df["order_purchase_timestamp"].dt.date <= end_date)
 ]
 
-# Apply additional filters if needed
+# Filter main dataframe by produdt and city
 if selected_category != 'All':
     main_df = main_df[main_df["product_category_name_english"] == selected_category]
 
@@ -108,7 +104,7 @@ if selected_city != 'All':
     main_df = main_df[main_df["seller_city"] == selected_city]
 
 
-# Check if DataFrame is empty after filtering
+# If DataFrame is empty 
 if main_df.empty:
     st.error(f"No orders found for:")
     if selected_category != 'All':
@@ -118,7 +114,7 @@ if main_df.empty:
     st.write(f"Date range: {start_date} to {end_date}")
     st.stop()
 
-# Create visualizations
+# Visualizations
 daily_orders_df = create_daily_orders_df(main_df)
 product_sales = create_product_sales_df(main_df)
 customers_city = create_customers_city_df(main_df)
@@ -126,7 +122,6 @@ city_sales = create_city_sales_df(main_df)
 rfm_df = create_rfm_df(main_df)
 
 # Data Visualization
-
 color_scale = px.colors.sequential.Reds
 st.header('E-Commerce Public')
 
@@ -201,7 +196,7 @@ try:
 except Exception as e:
     st.error(f"Error creating product sales chart: {str(e)}")
 
-# Demographi customer and top sellers by city
+# Demography customer and top sellers by city
 try: 
     st.subheader("Top Customers and Sellers by City")
     tab1, tab2 = st.tabs(["Top Customers by City", "Top Sellers by City"])
