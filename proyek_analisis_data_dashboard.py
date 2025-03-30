@@ -230,9 +230,13 @@ except Exception as e:
     st.error(f"Error creating Top Customers and Sellers by City chart: {str(e)}")
 
 # rfm
+MAROON_SCALES = ["#FFF5EE", "#800000"]
+MAROON_SCALES = {
+"recency": ["#FFF5EE", "#F5C0C0", "#E67E7E", "#800000"],
+"frequency": ["#FFF5EE", "#D2B4DE", "#9B59B6", "#5B2C6F"],
+"monetary": ["#FFF5EE", "#F9E79F", "#F1C40F", "#B7950B"]
+}
 try:
-    MAROON_SCALES =  ["#FFF5EE", "#800000"]  # Light to dark maroon
-    
     st.subheader("Best Customer Based on RFM Parameters (customer_id)")
     rfm_df["customer_id_short"] = rfm_df["customer_id"].str[:6]
     
@@ -244,7 +248,7 @@ try:
                      y="recency",
                      title="Top Customers by Recency (Days Since Last Purchase)",
                      color="recency",
-                     color_continuous_scale=MAROON_SCALES)
+                     color_continuous_scale=MAROON_SCALES["recency"])
         fig.update_layout(margin=dict(l=20, r=20, t=40, b=20))
         st.plotly_chart(fig, use_container_width=True)
     
@@ -254,7 +258,7 @@ try:
                      y="frequency",
                      title="Top Customers by Purchase Frequency",
                      color="frequency",
-                     color_continuous_scale=MAROON_SCALES)
+                     color_continuous_scale=MAROON_SCALES["frequency"])
         fig.update_layout(margin=dict(l=20, r=20, t=40, b=20))
         st.plotly_chart(fig, use_container_width=True)
     
@@ -264,9 +268,9 @@ try:
                      y="monetary",
                      title="Top Customers by Spending (Monetary)",
                      color="monetary",
-                     color_continuous_scale=MAROON_SCALES)
+                     color_continuous_scale=MAROON_SCALES["monetary"])
         fig.update_layout(margin=dict(l=20, r=20, t=40, b=20))
         st.plotly_chart(fig, use_container_width=True)
 
 except Exception as e:
-    st.error(f"Error creating Best Customer Based on RFM Parameters (customer_id) chart: {str(e)}")
+    st.error(f"RFM visualization error: {str(e)}")
