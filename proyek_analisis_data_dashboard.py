@@ -250,7 +250,6 @@ try:
         st.plotly_chart(fig, use_container_width=True)
 
     with tab2:
-        # Get exact top 5 records (no aggregation)
         top_freq = rfm_df.sort_values("frequency", ascending=False).head(5).copy()
         
         fig = px.bar(
@@ -258,14 +257,13 @@ try:
             x="customer_id_short",
             y="frequency",
             text="frequency",
-            color_discrete_sequence=["#800000"],
+            color_discrete_sequence=MAROON_SCALES,
             title="Top Customers by Order Frequency",
             labels={"customer_id_short": "Customer ID", "frequency": "Orders Count"},
             # Critical parameters:
             barmode='group',  # Prevents aggregation
-            category_orders={"customer_id_short": top_freq['customer_id_short'].tolist()}  # Lock order
+            category_orders={"customer_id_short": top_freq['customer_id_short'].tolist()}  
         )
-        # Ensure consistent display
         fig.update_traces(
             texttemplate='%{y}',
             textposition='outside',
@@ -274,7 +272,7 @@ try:
         fig.update_layout(
             xaxis_title="Customer ID",
             yaxis_title="Number of Orders",
-            xaxis={'type': 'category'},  # Treat IDs as discrete
+            xaxis={'type': 'category'},  
             uniformtext_minsize=8,
             margin=dict(l=50, r=50, t=80, b=50)
         )
