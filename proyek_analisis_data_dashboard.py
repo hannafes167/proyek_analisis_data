@@ -158,7 +158,7 @@ except Exception as e:
 
 # Best and Worst Product Selling
 try:
-    MAROON_SCALES =  ["#FFF5EE", "#800000"]
+    COLOR_SCALES =  ["#800000", "#FFF5EE"]
     best_selling = product_sales.sort_values(by="order_item_id", ascending=False).head(5)
     worst_selling = product_sales.sort_values(by="order_item_id", ascending=True).head(5)
     st.subheader("Best and Worst Selling Product")
@@ -171,7 +171,7 @@ try:
         go.Bar(y=best_selling["product_category_name_english"],
                x=best_selling["order_item_id"],
                orientation='h',
-               marker_color=MAROON_SCALES,
+               marker_color=COLOR_SCALES,
                name="Best Sellers"),
         row=1, col=1
     )
@@ -181,7 +181,7 @@ try:
         go.Bar(y=worst_selling["product_category_name_english"],
                x=worst_selling["order_item_id"],
                orientation='h',
-               marker_color=MAROON_SCALES,
+               marker_color=COLOR_SCALES,
                name="Worst Sellers"),
         row=1, col=2
     )
@@ -199,7 +199,7 @@ except Exception as e:
 
 # Demography customer and top sellers by city
 try: 
-    MAROON_SCALES =  ["#FFF5EE", "#800000"]
+    COLOR_SCALES =  ["#800000", "#FFF5EE"]
     st.subheader("Top Customers and Sellers by City")
     tab1, tab2 = st.tabs(["Top Customers by City", "Top Sellers by City"])
     
@@ -207,7 +207,7 @@ try:
         fig = px.bar(customers_city.head(5),
                      x="customer_city",
                      y="customer_unique_id",
-                     color_discrete_sequence=MAROON_SCALES,
+                     color_discrete_sequence=COLOR_SCALES,
                      title="Top Customer Cities",
                      labels={"customer_unique_id": "Customer Count", "customer_city": "City"})
         fig.update_layout(hovermode="x")
@@ -218,7 +218,7 @@ try:
         fig = px.bar(city_sales.head(5),
                      x="seller_city",
                      y="order_item_id",
-                     color_discrete_sequence=MAROON_SCALES,
+                     color_discrete_sequence=COLOR_SCALES,
                      title="Top Seller Cities",
                      labels={"order_item_id": "Items Sold", "seller_city": "City"})
         fig.update_layout(margin=dict(l=20, r=20, t=40, b=20))
