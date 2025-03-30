@@ -263,7 +263,7 @@ try:
             #barmode='group',  
             #category_orders={"customer_id_short": top_freq['customer_id_short'].tolist()}  
         )
-        fig.update_traces(
+        # fig.update_traces(
             texttemplate='%{y}',
             textposition='outside',
             textfont_size=12
