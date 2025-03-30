@@ -232,7 +232,7 @@ except Exception as e:
 
 # rfm
 try:
-    MAROON_SCALES =  ["#FFF5EE", "#800000"]  # Light to dark maroon
+    MAROON_SCALES =  ["#FFF5EE", "#800000"]  
     
     st.subheader("Best Customer Based on RFM Parameters (customer_id)")
     rfm_df["customer_id_short"] = rfm_df["customer_id"].str[:6]
@@ -256,25 +256,24 @@ try:
             top_freq,
             x="customer_id_short",
             y="frequency",
-            text="frequency",
-            color_discrete_sequence=MAROON_SCALES,
             title="Top Customers by Order Frequency",
             labels={"customer_id_short": "Customer ID", "frequency": "Orders Count"},
-            # Critical parameters:
-            barmode='group',  # Prevents aggregation
-            category_orders={"customer_id_short": top_freq['customer_id_short'].tolist()}  
+            color="frequency",  
+            color_continuous_scale=px.colors.sequential.Reds,  
+            text="frequency"  
         )
         fig.update_traces(
-            texttemplate='%{y}',
+            texttemplate='%{y} orders',
             textposition='outside',
-            textfont_size=12
+            marker_line_color='rgb(0,0,0)',
+            marker_line_width=1
         )
         fig.update_layout(
             xaxis_title="Customer ID",
             yaxis_title="Number of Orders",
-            xaxis={'type': 'category'},  
-            uniformtext_minsize=8,
-            margin=dict(l=50, r=50, t=80, b=50)
+            coloraxis_showscale=False,  
+            uniformtext_minsize=10,
+            margin=dict(l=20, r=20, t=60, b=20)
         )
         st.plotly_chart(fig, use_container_width=True)
     
