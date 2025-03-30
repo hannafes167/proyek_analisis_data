@@ -260,8 +260,8 @@ try:
             color_continuous_scale=MAROON_SCALES,
             # labels={"customer_id_short": "Customer ID", "frequency": "Orders Count"},
             # Critical parameters:
-            barmode='group',  
-            category_orders={"customer_id_short": top_freq['customer_id_short'].tolist()}  
+            #barmode='group',  
+            #category_orders={"customer_id_short": top_freq['customer_id_short'].tolist()}  
         )
         fig.update_traces(
             texttemplate='%{y}',
