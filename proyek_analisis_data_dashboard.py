@@ -158,7 +158,7 @@ except Exception as e:
 
 # Best and Worst Product Selling
 try:
-    COLOR_SCALES =  ["#800000", "#FFF5EE"]
+    COLOR_SCALES =  ["#800000", "#FFF5EE", "#FFF5EE", "#FFF5EE", "#FFF5EE"]
     best_selling = product_sales.sort_values(by="order_item_id", ascending=False).head(5)
     worst_selling = product_sales.sort_values(by="order_item_id", ascending=True).head(5)
     st.subheader("Best and Worst Selling Product")
@@ -199,7 +199,7 @@ except Exception as e:
 
 # Demography customer and top sellers by city
 try: 
-    COLOR_SCALES =  ["#800000", "#FFF5EE"]
+    COLOR_SCALES =  ["#800000", "#FFF5EE", "#FFF5EE", "#FFF5EE", "#FFF5EE"]
     st.subheader("Top Customers and Sellers by City")
     tab1, tab2 = st.tabs(["Top Customers by City", "Top Sellers by City"])
     
